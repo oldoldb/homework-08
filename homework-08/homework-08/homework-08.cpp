@@ -57,7 +57,7 @@ bool MyUrl::IsUrl()
 {
 //	const regex pattern("^((site)|((ht|f)tp(s?)))\:\/\/[a-zA-Z0-9\u4e00-\u9fa5\-\._]+(\.[a-zA-Z0-9\u4e00-\u9fa5\-\._]+){2,}(\/?)([a-zA-Z0-9\u4e00-\u9fa5\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");//其中\u4e00-\u9fa5为中文字符unicode编码范围
 //	const regex pattern("^(((ht|f)tp(s?))\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$");	
-	const regex pattern("^((http|https|site|ftp|ftps)\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(\/?)([a-zA-Z0-9\u4e00-\u9fa5\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
+	const regex pattern("^((http|https|site|ftp|ftps)\://)(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(\/?)([a-zA-Z0-9\u4e00-\u9fa5\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
 	try
 	{
 		if(!regex_match(url,pattern))
@@ -154,9 +154,9 @@ void MyUrl::SeperateUrlWithoutSTL()
 }
 int _tmain(int argc, _TCHAR* argv[])
 { 
-	MyUrl myUrl=MyUrl::MyUrl();
 	while(true)
 	{
+		MyUrl myUrl=MyUrl::MyUrl();
 		if(!myUrl.Getstring())//未正确输入
 		{
 			continue;
@@ -168,7 +168,18 @@ int _tmain(int argc, _TCHAR* argv[])
 		myUrl.SeperateUrl();
 //		myUrl.SeperateUrlWithoutSTL();
 		myUrl.PrintResult();
-		break;//正确处理后直接跳出
+		myUrl.~MyUrl();
+
+		cout<<"Enter Y to continue Or break"<<endl;
+		char ch=getchar();
+		if(ch=='Y'||ch=='y')
+		{
+			continue;
+		}
+		else
+		{
+			break;
+		}
 	}
 	return 0;
 }
