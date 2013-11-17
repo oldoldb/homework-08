@@ -42,7 +42,15 @@ void MyUrl::PrintResult()
 {
 	for(vector<string>::size_type i=0;i!=result.size();i++)
 	{
-		cout<<result[i]<<endl;
+		cout<<result[i];
+		if(i==result.size()-1)
+		{
+			cout<<endl;
+		}
+		else
+		{
+			cout<<",";
+		}
 	}
 }
 bool MyUrl::IsUrl()
